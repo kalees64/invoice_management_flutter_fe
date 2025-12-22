@@ -1,7 +1,8 @@
 import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primary = Color(0xFF0175C2);
+  static const Color primary = Color(0xFF2196FC);
   static const Color secondary = Color(0xFF00A8E8);
   static const Color danger = Color(0xFFE74C3C);
   static const Color success = Color(0xFF2ECC71);
@@ -13,4 +14,5 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color transparent = Color(0x00000000);
   static const Color grey = Color(0xFF95A5A6);
+  static const Color background = Color(0xFFE8EAF6);
 }

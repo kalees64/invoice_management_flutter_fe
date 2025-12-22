@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
-import 'package:invoice_management_flutter_fe/screens/features/dashboard.dart';
+import 'package:invoice_management_flutter_fe/screens/features/layouts/admin_layout.dart';
 import 'package:invoice_management_flutter_fe/utils/navigator.dart';
 import 'package:invoice_management_flutter_fe/utils/toaster.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (email == 'admin@gmail.com' && password == 'admin123') {
         log("Login Success");
-        pushToPage(context, Dashboard());
+        pushToPage(context, AdminLayout(initialPage: 'dashboard'));
       } else {
         log("Login Failed");
         Toaster.showErrorToast(context, "Invalid credentials");
