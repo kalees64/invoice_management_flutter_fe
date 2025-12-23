@@ -178,7 +178,7 @@ class _InventoryState extends State<Inventory> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                h1("Inventory"),
+                h1("Products List"),
                 ElevatedButton.icon(
                   onPressed: _showAddProductDialog,
                   icon: const Icon(Icons.add),

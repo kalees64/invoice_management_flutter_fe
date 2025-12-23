@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
 import 'package:invoice_management_flutter_fe/constants/font.dart';
 
-Widget h1(String text, {Color? color = AppColors.black, double fontSize = 24}) {
+Widget h1(String text, {Color? color = AppColors.black, double fontSize = 22}) {
   return Text(
     text,
     style: TextStyle(
@@ -30,7 +30,7 @@ Widget h2(String text, {Color? color = AppColors.black, double fontSize = 18}) {
   );
 }
 
-Widget h3(String text, {Color? color = AppColors.black, double fontSize = 16}) {
+Widget h3(String text, {Color? color = AppColors.black, double fontSize = 14}) {
   return Text(
     text,
     style: TextStyle(

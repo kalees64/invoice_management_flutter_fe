@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
-import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
 
 class Invoice {
   final String id;
@@ -91,9 +90,6 @@ class _DashboardState extends State<Dashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              h1("Dashboard"),
-              const SizedBox(height: 24),
-
               // Stats Cards Row
               Row(
                 children: [

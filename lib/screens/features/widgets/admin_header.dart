@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
-import 'package:invoice_management_flutter_fe/screens/auth/login_screen.dart';
-import 'package:invoice_management_flutter_fe/utils/navigator.dart';
+import 'package:invoice_management_flutter_fe/utils/helper.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
 
+// ignore: must_be_immutable
 class AdminHeader extends StatelessWidget {
-  const AdminHeader({super.key});
+  String activePage = "dashboard";
 
-  void _handleLogout(BuildContext context) {
-    replacePage(context, LoginScreen());
-  }
+  AdminHeader({super.key, required this.activePage});
 
   @override
   Widget build(BuildContext context) {
@@ -21,28 +19,19 @@ class AdminHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
       decoration: BoxDecoration(
         color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
+        border: Border(bottom: BorderSide(color: AppColors.light, width: 2)),
       ),
       child: Row(
         children: [
-          h1("Invoice Management", color: AppColors.success, fontSize: 22),
+          h2(Helper.capitalizeFirstLetter(activePage)),
           Spacer(),
           Row(
             spacing: 10,
             children: [
-              Icon(Icons.person, color: AppColors.primary),
-              InkWell(
-                onTap: () {
-                  _handleLogout(context);
-                },
-                child: Icon(Icons.logout, color: AppColors.danger),
+              CircleAvatar(
+                radius: 20,
+                backgroundColor: AppColors.avatarBackground,
+                child: Icon(Icons.person, color: AppColors.white),
               ),
             ],
           ),

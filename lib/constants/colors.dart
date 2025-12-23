@@ -14,5 +14,9 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color transparent = Color(0x00000000);
   static const Color grey = Color(0xFF95A5A6);
-  static const Color background = Color(0xFFE8EAF6);
+  static const Color background = Color(0xFFf9fafc);
+  static const Color sidebarBackground = Color(0xFF202938);
+  static const Color sidebarMenuHighlight = Color(0xFF384152);
+  static const Color sidebarMenuColor = Color(0xFF747c87);
+  static const Color avatarBackground = Color(0xFF5f66f2);
 }

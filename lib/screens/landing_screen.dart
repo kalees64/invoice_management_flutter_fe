@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invoice_management_flutter_fe/screens/auth/login_screen.dart';
+import 'package:invoice_management_flutter_fe/screens/features/layouts/admin_layout.dart';
 import 'package:invoice_management_flutter_fe/utils/navigator.dart';
 import 'package:invoice_management_flutter_fe/widgets/asset_image_container.dart';
 
@@ -76,7 +76,8 @@ class _LandingScreenState extends State<LandingScreen>
     // Navigate after 2 seconds
     Future.delayed(const Duration(seconds: 4), () {
       if (mounted) {
-        pushToPage(context, LoginScreen());
+        // pushToPage(context, LoginScreen());
+        pushToPage(context, AdminLayout(initialPage: 'dashboard'));
       }
     });
   }

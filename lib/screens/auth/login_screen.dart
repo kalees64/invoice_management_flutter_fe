@@ -119,95 +119,97 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Padding(
                 padding: EdgeInsetsGeometry.all(20),
                 child: Container(
-                  padding: EdgeInsets.all(40),
+                  padding: EdgeInsets.all(30),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.grey.withValues(alpha: 0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
                         offset: Offset(0, 3),
                       ),
                     ],
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      h1("Welcome Back!", fontSize: 40),
-                      SizedBox(height: 10),
-                      text(
-                        "Log in to manage invoices, quotations, inventory, and payments seamlessly.",
-                        color: Colors.blueGrey,
-                      ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        h1("Welcome Back!", fontSize: 40),
+                        SizedBox(height: 10),
+                        text(
+                          "Log in to manage invoices, quotations, inventory, and payments seamlessly.",
+                          color: Colors.blueGrey,
+                        ),
 
-                      SizedBox(height: 40),
-                      Form(
-                        key: _loginFormKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          spacing: 10,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                label("Email", required: true),
-                                input(
-                                  controller: _emailController,
-                                  placeholder: "abc@gmail.com",
-                                  prefixIcon: Icon(
-                                    Icons.email,
-                                    color: AppColors.primary,
-                                  ),
-                                  hideBorder: true,
-                                  validator: _validateEmail,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                label("Password", required: true),
-                                input(
-                                  controller: _passwordController,
-                                  placeholder: "Enter your password",
-                                  prefixIcon: Icon(
-                                    Icons.lock,
-                                    color: AppColors.primary,
-                                  ),
-                                  sufficIcon: InkWell(
-                                    onTap: _togglePasswordVisibility,
-                                    child: Icon(
-                                      _isPasswordVisible
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
+                        SizedBox(height: 40),
+                        Form(
+                          key: _loginFormKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            spacing: 10,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  label("Email", required: true),
+                                  input(
+                                    controller: _emailController,
+                                    placeholder: "abc@gmail.com",
+                                    prefixIcon: Icon(
+                                      Icons.email,
                                       color: AppColors.primary,
                                     ),
+                                    hideBorder: true,
+                                    validator: _validateEmail,
                                   ),
-                                  obscureText: !_isPasswordVisible,
-                                  hideBorder: true,
-                                  validator: _validatePassword,
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  label("Password", required: true),
+                                  input(
+                                    controller: _passwordController,
+                                    placeholder: "Enter your password",
+                                    prefixIcon: Icon(
+                                      Icons.lock,
+                                      color: AppColors.primary,
+                                    ),
+                                    sufficIcon: InkWell(
+                                      onTap: _togglePasswordVisibility,
+                                      child: Icon(
+                                        _isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: AppColors.primary,
+                                      ),
+                                    ),
+                                    obscureText: !_isPasswordVisible,
+                                    hideBorder: true,
+                                    validator: _validatePassword,
+                                  ),
+                                ],
+                              ),
 
-                            SizedBox(height: 20),
-                            button(
-                              "Login",
-                              onPressed: _handleFormSubmit,
-                              btnRadious: 5,
-                              isLoading: _isLoading,
-                            ),
-                          ],
+                              SizedBox(height: 20),
+                              button(
+                                "Login",
+                                onPressed: _handleFormSubmit,
+                                btnRadious: 5,
+                                isLoading: _isLoading,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

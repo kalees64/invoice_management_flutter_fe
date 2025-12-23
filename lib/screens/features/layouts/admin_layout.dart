@@ -17,9 +17,53 @@ class AdminLayout extends StatefulWidget {
 }
 
 class _AdminLayoutState extends State<AdminLayout> {
-  final Map<String, Widget> _pages = {
-    'dashboard': Dashboard(),
-    'inventory': Inventory(),
+  final Map<String, Map<String, Object>> _pages = {
+    'dashboard': {
+      'widget': Dashboard(),
+      'icon': Icons.dashboard,
+      'visible': true,
+    },
+
+    // INVENTORY FLOW
+    'inventory': {
+      'widget': Inventory(),
+      'icon': Icons.inventory_2,
+      'visible': true,
+    },
+
+    // SALES FLOW
+    'quotations': {
+      'widget': Placeholder(),
+      'icon': Icons.request_quote,
+      'visible': true,
+    },
+    'invoices': {
+      'widget': Placeholder(),
+      'icon': Icons.receipt_long,
+      'visible': true,
+    },
+    'payments': {
+      'widget': Placeholder(),
+      'icon': Icons.payments,
+      'visible': true,
+    },
+
+    // SETTINGS
+    'settings': {
+      'widget': Placeholder(),
+      'icon': Icons.settings,
+      'visible': false,
+    },
+    'logout': {'widget': Placeholder(), 'icon': Icons.logout, 'visible': false},
+  };
+
+  final Map<String, Map<String, Object>> settingsMenus = {
+    'settings': {
+      'widget': Placeholder(),
+      'icon': Icons.settings,
+      'visible': true,
+    },
+    'logout': {'widget': Placeholder(), 'icon': Icons.logout, 'visible': true},
   };
 
   late Widget _currentPage;
@@ -28,7 +72,7 @@ class _AdminLayoutState extends State<AdminLayout> {
   void _handleSidebarItemTap(String item) {
     log("Clicked Menu : $item");
     setState(() {
-      _currentPage = _pages[item]!;
+      _currentPage = _pages[item]!['widget'] as Widget;
       _activeItem = item;
     });
   }
@@ -36,7 +80,7 @@ class _AdminLayoutState extends State<AdminLayout> {
   @override
   void initState() {
     super.initState();
-    _currentPage = _pages[widget.initialPage]!;
+    _currentPage = _pages[widget.initialPage]!['widget'] as Widget;
     _activeItem = widget.initialPage;
   }
 
@@ -48,26 +92,30 @@ class _AdminLayoutState extends State<AdminLayout> {
       body: Container(
         width: width,
         height: height,
-        color: AppColors.white,
-        child: Column(
+        color: AppColors.transparent,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AdminHeader(),
             Container(
-              height: height - (height * 0.09),
-              color: AppColors.white,
-              child: Row(
-                children: [
-                  Container(
-                    width: width * 0.2,
-                    color: AppColors.white,
-                    child: AdminSidebar(
-                      sidebarItems: _pages.keys.toList(),
-                      activeItem: _activeItem,
-                      onItemTap: _handleSidebarItemTap,
-                    ),
-                  ),
-                  Expanded(child: _currentPage),
-                ],
+              width: width * 0.2,
+              height: height,
+              color: AppColors.sidebarBackground,
+              child: AdminSidebar(
+                sidebarItems: _pages,
+                settingsMenus: settingsMenus,
+                activeItem: _activeItem,
+                onItemTap: _handleSidebarItemTap,
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: AppColors.white,
+                child: Column(
+                  children: [
+                    AdminHeader(activePage: _activeItem),
+                    Expanded(child: _currentPage),
+                  ],
+                ),
               ),
             ),
           ],
