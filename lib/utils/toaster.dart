@@ -11,4 +11,15 @@ class Toaster {
       ),
     );
   }
+
+  static void showSuccessToast(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 2),
+        action: SnackBarAction(label: 'undo', onPressed: () {}),
+      ),
+    );
+  }
 }

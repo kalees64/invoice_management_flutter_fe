@@ -6,8 +6,9 @@ import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
 // ignore: must_be_immutable
 class AdminHeader extends StatelessWidget {
   String activePage = "dashboard";
+  bool backButton = false;
 
-  AdminHeader({super.key, required this.activePage});
+  AdminHeader({super.key, required this.activePage, required this.backButton});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,13 @@ class AdminHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          h2(Helper.capitalizeFirstLetter(activePage)),
+          Row(
+            spacing: 10,
+            children: [
+              if (backButton) BackButton(color: AppColors.black),
+              h2(Helper.makeWordAsTitle(activePage)),
+            ],
+          ),
           Spacer(),
           Row(
             spacing: 10,

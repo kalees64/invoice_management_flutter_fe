@@ -1,11 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
 import 'package:invoice_management_flutter_fe/screens/features/dashboard.dart';
 import 'package:invoice_management_flutter_fe/screens/features/inventory.dart';
+import 'package:invoice_management_flutter_fe/screens/features/pages/add_product.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_header.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_sidebar.dart';
+import 'package:invoice_management_flutter_fe/store/products/product_bloc.dart';
 
 // ignore: must_be_immutable
 class AdminLayout extends StatefulWidget {
@@ -22,6 +25,7 @@ class _AdminLayoutState extends State<AdminLayout> {
       'widget': Dashboard(),
       'icon': Icons.dashboard,
       'visible': true,
+      'backButton': false,
     },
 
     // INVENTORY FLOW
@@ -29,6 +33,7 @@ class _AdminLayoutState extends State<AdminLayout> {
       'widget': Inventory(),
       'icon': Icons.inventory_2,
       'visible': true,
+      'backButton': false,
     },
 
     // SALES FLOW
@@ -36,16 +41,19 @@ class _AdminLayoutState extends State<AdminLayout> {
       'widget': Placeholder(),
       'icon': Icons.request_quote,
       'visible': true,
+      'backButton': false,
     },
     'invoices': {
       'widget': Placeholder(),
       'icon': Icons.receipt_long,
       'visible': true,
+      'backButton': false,
     },
     'payments': {
       'widget': Placeholder(),
       'icon': Icons.payments,
       'visible': true,
+      'backButton': false,
     },
 
     // SETTINGS
@@ -53,8 +61,22 @@ class _AdminLayoutState extends State<AdminLayout> {
       'widget': Placeholder(),
       'icon': Icons.settings,
       'visible': false,
+      'backButton': false,
     },
-    'logout': {'widget': Placeholder(), 'icon': Icons.logout, 'visible': false},
+    'logout': {
+      'widget': Placeholder(),
+      'icon': Icons.logout,
+      'visible': false,
+      'backButton': false,
+    },
+
+    // Add Procuct Page
+    'add_product': {
+      'widget': AddProduct(),
+      'icon': Icons.add_box,
+      'visible': false,
+      'backButton': true,
+    },
   };
 
   final Map<String, Map<String, Object>> settingsMenus = {
@@ -62,8 +84,14 @@ class _AdminLayoutState extends State<AdminLayout> {
       'widget': Placeholder(),
       'icon': Icons.settings,
       'visible': true,
+      'backButton': false,
     },
-    'logout': {'widget': Placeholder(), 'icon': Icons.logout, 'visible': true},
+    'logout': {
+      'widget': Placeholder(),
+      'icon': Icons.logout,
+      'visible': true,
+      'backButton': false,
+    },
   };
 
   late Widget _currentPage;
@@ -88,37 +116,43 @@ class _AdminLayoutState extends State<AdminLayout> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Container(
-        width: width,
-        height: height,
-        color: AppColors.transparent,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: width * 0.2,
-              height: height,
-              color: AppColors.sidebarBackground,
-              child: AdminSidebar(
-                sidebarItems: _pages,
-                settingsMenus: settingsMenus,
-                activeItem: _activeItem,
-                onItemTap: _handleSidebarItemTap,
-              ),
-            ),
-            Expanded(
-              child: Container(
-                color: AppColors.white,
-                child: Column(
-                  children: [
-                    AdminHeader(activePage: _activeItem),
-                    Expanded(child: _currentPage),
-                  ],
+    return BlocProvider.value(
+      value: BlocProvider.of<ProductBloc>(context),
+      child: Scaffold(
+        body: Container(
+          width: width,
+          height: height,
+          color: AppColors.transparent,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: width * 0.2,
+                height: height,
+                color: AppColors.sidebarBackground,
+                child: AdminSidebar(
+                  sidebarItems: _pages,
+                  settingsMenus: settingsMenus,
+                  activeItem: _activeItem,
+                  onItemTap: _handleSidebarItemTap,
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Container(
+                  color: AppColors.white,
+                  child: Column(
+                    children: [
+                      AdminHeader(
+                        activePage: _activeItem,
+                        backButton: _pages[_activeItem]!['backButton'] as bool,
+                      ),
+                      Expanded(child: _currentPage),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
