@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
+import 'package:invoice_management_flutter_fe/screens/features/customers.dart';
 import 'package:invoice_management_flutter_fe/screens/features/dashboard.dart';
 import 'package:invoice_management_flutter_fe/screens/features/inventory.dart';
+import 'package:invoice_management_flutter_fe/screens/features/pages/add_customer.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/add_product.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_header.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_sidebar.dart';
@@ -24,6 +26,13 @@ class _AdminLayoutState extends State<AdminLayout> {
     'dashboard': {
       'widget': Dashboard(),
       'icon': Icons.dashboard,
+      'visible': true,
+      'backButton': false,
+    },
+
+    'customers': {
+      'widget': Customers(),
+      'icon': Icons.people,
       'visible': true,
       'backButton': false,
     },
@@ -73,6 +82,14 @@ class _AdminLayoutState extends State<AdminLayout> {
     // Add Procuct Page
     'add_product': {
       'widget': AddProduct(),
+      'icon': Icons.add_box,
+      'visible': false,
+      'backButton': true,
+    },
+
+    // Add Customer Page
+    'add_customer': {
+      'widget': AddCustomer(),
       'icon': Icons.add_box,
       'visible': false,
       'backButton': true,

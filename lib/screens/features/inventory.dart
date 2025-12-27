@@ -46,7 +46,7 @@ class _InventoryState extends State<Inventory> {
       backgroundColor: AppColors.background,
       body: BlocBuilder<ProductBloc, AddProductState>(
         builder: (context, state) => Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

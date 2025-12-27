@@ -7,10 +7,12 @@ environment:
   sdk: ^3.10.4
 
 dependencies:
+  dio: ^5.9.0
   equatable: ^2.0.7
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_dotenv: ^6.0.0
   google_fonts: ^6.3.3
 
 dev_dependencies:
@@ -22,3 +24,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - .env

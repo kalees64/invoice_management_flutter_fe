@@ -27,6 +27,7 @@ Widget dropdownInput<T>({
   Function(T?)? onChanged,
   Function(T?)? onSaved,
   String? Function(T?)? validator,
+  double fontSize = 14,
 }) {
   return DropdownButtonFormField<T>(
     initialValue: initialValue,
@@ -38,6 +39,7 @@ Widget dropdownInput<T>({
       color: textColor,
       fontFamily: AppFonts.poppins,
       fontWeight: fontWeight,
+      fontSize: fontSize,
     ),
     decoration: InputDecoration(
       labelText: labelText,
@@ -101,7 +103,11 @@ Widget dropdownInput<T>({
     items: items.map((item) {
       return DropdownMenuItem<T>(
         value: item,
-        child: text(itemLabel(item), fontWeight: fontWeight),
+        child: text(
+          itemLabel(item),
+          fontWeight: fontWeight,
+          fontSize: fontSize,
+        ),
       );
     }).toList(),
   );

@@ -7,15 +7,17 @@ Widget button(
   required VoidCallback onPressed,
   Color textColor = AppColors.white,
   double width = double.infinity,
+  double height = 35,
   bool disabled = false,
   bool isLoading = false,
-  double paddingY = 16,
-  double paddingX = 24,
+  double paddingY = 0,
+  double paddingX = 0,
   Color btnColor = AppColors.primary,
   double btnRadious = 5,
-  double fontSize = 16,
-  double loaderSize = 16,
+  double fontSize = 14,
+  double loaderSize = 14,
   double loaderStrokeWidth = 3,
+  IconData? icon,
 }) {
   void handleTap() {
     if (!disabled && !isLoading) {
@@ -23,33 +25,43 @@ Widget button(
     }
   }
 
-  return InkWell(
-    onTap: handleTap,
-    child: Opacity(
-      opacity: disabled || isLoading ? 0.5 : 1,
-      child: Container(
-        width: width,
-        padding: EdgeInsets.symmetric(vertical: paddingY, horizontal: paddingX),
-        decoration: BoxDecoration(
-          color: btnColor,
-          borderRadius: BorderRadius.circular(btnRadious),
-        ),
-        child: Center(
-          child: Row(
-            spacing: 10,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (isLoading)
-                SizedBox(
-                  width: loaderSize,
-                  height: loaderSize,
-                  child: CircularProgressIndicator(
-                    strokeWidth: loaderStrokeWidth,
-                    color: textColor,
+  return Flexible(
+    child: InkWell(
+      onTap: handleTap,
+      child: Opacity(
+        opacity: disabled || isLoading ? 0.5 : 1,
+        child: Container(
+          width: width,
+          height: height,
+          padding: EdgeInsets.symmetric(
+            vertical: paddingY,
+            horizontal: paddingX,
+          ),
+          decoration: BoxDecoration(
+            color: btnColor,
+            borderRadius: BorderRadius.circular(btnRadious),
+          ),
+          child: Center(
+            child: Row(
+              spacing: 5,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null && !isLoading)
+                  Icon(icon, color: textColor, size: fontSize + 4),
+
+                h3(text, color: textColor, fontSize: fontSize),
+                if (isLoading) SizedBox(width: 5),
+                if (isLoading)
+                  SizedBox(
+                    width: loaderSize,
+                    height: loaderSize,
+                    child: CircularProgressIndicator(
+                      strokeWidth: loaderStrokeWidth,
+                      color: textColor,
+                    ),
                   ),
-                ),
-              h3(text, color: textColor, fontSize: fontSize),
-            ],
+              ],
+            ),
           ),
         ),
       ),
