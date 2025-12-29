@@ -1,3 +1,15 @@
 {
-  "users": []
+  "users": [
+    {
+      "id": "110ec58a-a0f2-4ac4-8393-c866d813b8d1",
+      "name": "Kalees",
+      "email": "vk@gmail.com",
+      "phone": "8248589198",
+      "address": "35, Kaliamman kovil st, South Chathiram",
+      "city": "Sivagiri",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "pincode": "627757"
+    }
+  ]
 }

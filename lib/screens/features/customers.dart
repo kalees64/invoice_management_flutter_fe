@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invoice_management_flutter_fe/constants/colors.dart';
+import 'package:invoice_management_flutter_fe/models/user_model.dart';
 import 'package:invoice_management_flutter_fe/screens/features/layouts/admin_layout.dart';
 import 'package:invoice_management_flutter_fe/store/user/user_bloc.dart';
 import 'package:invoice_management_flutter_fe/store/user/user_event.dart';
 import 'package:invoice_management_flutter_fe/store/user/user_state.dart';
 import 'package:invoice_management_flutter_fe/utils/navigator.dart';
+import 'package:invoice_management_flutter_fe/utils/toaster.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
 import 'package:invoice_management_flutter_fe/widgets/data_table.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
@@ -26,6 +31,13 @@ class _CustomersState extends State<Customers> {
       TableColumnConfig(fieldName: 'name', displayName: 'Name', bold: true),
       TableColumnConfig(fieldName: 'email', displayName: 'Email'),
       TableColumnConfig(fieldName: 'phone', displayName: 'Phone'),
+      TableColumnConfig(
+        fieldName: 'actions',
+        displayName: 'Actions',
+        customWidget: (value, index, rowData) {
+          return _actionCell(value, index, rowData, context);
+        },
+      ),
     ];
   }
 
@@ -75,7 +87,9 @@ class _CustomersState extends State<Customers> {
                 if (state is UserLoadedState) {
                   return ReusableDataTable(
                     columns: _buildColumns(),
-                    data: [],
+                    data: state.users
+                        .map((e) => e.toJson() as Map<String, dynamic>)
+                        .toList(),
                     showSerialNumber: true,
                     serialNumberColumnName: 'S.No',
                     rowsPerPage: 10,
@@ -90,6 +104,40 @@ class _CustomersState extends State<Customers> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _actionCell(
+    dynamic value,
+    int index,
+    Map<String, dynamic> rowData,
+    BuildContext context,
+  ) {
+    return Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.edit, size: 20, color: AppColors.success),
+          onPressed: () {
+            pushToPage(
+              context,
+              AdminLayout(
+                initialPage: 'edit_customer',
+                editUser: UserModel.fromJson(rowData),
+              ),
+            );
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.delete, size: 20, color: AppColors.danger),
+          onPressed: () {
+            log("User Id :  ${rowData["id"]}");
+            BlocProvider.of<UserBloc>(
+              context,
+            ).add(DeleteUserEvent(rowData["id"]));
+            Toaster.showSuccessToast(context, 'User deleted');
+          },
+        ),
+      ],
     );
   }
 }

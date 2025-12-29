@@ -7,7 +7,7 @@ Widget button(
   required VoidCallback onPressed,
   Color textColor = AppColors.white,
   double width = double.infinity,
-  double height = 35,
+  double height = 40,
   bool disabled = false,
   bool isLoading = false,
   double paddingY = 0,

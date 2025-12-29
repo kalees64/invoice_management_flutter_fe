@@ -10,7 +10,7 @@ class UserModel {
   String pincode;
 
   UserModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
     required this.phone,

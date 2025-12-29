@@ -250,7 +250,7 @@ class _ReusableDataTableState extends State<ReusableDataTable> {
             text('Rows per page', fontSize: 14),
             const SizedBox(width: 8),
             SizedBox(
-              width: 85,
+              width: 130,
               child: dropdownInput<int>(
                 items: [5, 10, 20, 50, 100],
                 itemLabel: (value) => value.toString(),

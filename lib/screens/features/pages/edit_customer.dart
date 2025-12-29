@@ -10,16 +10,16 @@ import 'package:invoice_management_flutter_fe/utils/navigator.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
 import 'package:invoice_management_flutter_fe/widgets/input.dart';
-import 'package:uuid/uuid.dart';
 
-class AddCustomer extends StatefulWidget {
-  const AddCustomer({super.key});
+class EditCustomer extends StatefulWidget {
+  final UserModel user;
+  const EditCustomer({super.key, required this.user});
 
   @override
-  State<AddCustomer> createState() => _AddCustomerState();
+  State<EditCustomer> createState() => _EditCustomerState();
 }
 
-class _AddCustomerState extends State<AddCustomer> {
+class _EditCustomerState extends State<EditCustomer> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -30,13 +30,12 @@ class _AddCustomerState extends State<AddCustomer> {
   final _countryController = TextEditingController();
   final _pincodeController = TextEditingController();
   bool _isLoading = false;
-  var uuid = const Uuid();
 
   void _onSave(BuildContext context) {
     startLoading();
     if (_formKey.currentState!.validate()) {
       UserModel user = UserModel(
-        id: uuid.v4(),
+        id: widget.user.id,
         name: _nameController.text,
         email: _emailController.text,
         phone: _phoneController.text,
@@ -48,8 +47,9 @@ class _AddCustomerState extends State<AddCustomer> {
       );
 
       log(user.toJson().toString());
-
-      BlocProvider.of<UserBloc>(context).add(AddUserEvent(user.toJson()));
+      BlocProvider.of<UserBloc>(
+        context,
+      ).add(UpdateUserEvent(user.id!, user.toJson()));
       popPage(context);
     }
     stopLoading();
@@ -65,6 +65,19 @@ class _AddCustomerState extends State<AddCustomer> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.user.name;
+    _emailController.text = widget.user.email;
+    _phoneController.text = widget.user.phone;
+    _addressController.text = widget.user.address;
+    _cityController.text = widget.user.city;
+    _stateController.text = widget.user.state;
+    _countryController.text = widget.user.country;
+    _pincodeController.text = widget.user.pincode;
   }
 
   @override
