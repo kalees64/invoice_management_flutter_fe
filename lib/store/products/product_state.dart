@@ -1,29 +1,28 @@
 import 'package:equatable/equatable.dart';
-import 'package:invoice_management_flutter_fe/models/product_model.dart';
 
-// ignore: must_be_immutable
-class AddProductState extends Equatable {
-  List<ProductModel> products = [];
-  bool isLoading = false;
-
-  AddProductState copyWith({List<ProductModel>? products, bool? isLoading}) {
-    return AddProductState(
-      products: products ?? this.products,
-      isLoading: isLoading ?? this.isLoading,
-    );
-  }
-
-  AddProductState({this.products = const [], this.isLoading = false});
-
+class ProductState extends Equatable {
   @override
-  List<Object> get props => [products, isLoading];
+  List<Object?> get props => [];
 }
 
-class DeleteProductState extends Equatable {
-  final bool isLoading;
+class ProductInitialState extends ProductState {}
 
-  const DeleteProductState({this.isLoading = false});
+class ProductLoadingState extends ProductState {}
+
+class ProductLoadedState extends ProductState {
+  final List<dynamic> products;
+
+  ProductLoadedState(this.products);
 
   @override
-  List<Object> get props => [isLoading];
+  List<Object?> get props => [products];
+}
+
+class ProductErrorState extends ProductState {
+  final String error;
+
+  ProductErrorState(this.error);
+
+  @override
+  List<Object?> get props => [error];
 }

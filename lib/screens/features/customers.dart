@@ -1,18 +1,16 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
 import 'package:invoice_management_flutter_fe/models/user_model.dart';
+import 'package:invoice_management_flutter_fe/providers/user_provider.dart';
 import 'package:invoice_management_flutter_fe/screens/features/layouts/admin_layout.dart';
-import 'package:invoice_management_flutter_fe/store/user/user_bloc.dart';
-import 'package:invoice_management_flutter_fe/store/user/user_event.dart';
-import 'package:invoice_management_flutter_fe/store/user/user_state.dart';
 import 'package:invoice_management_flutter_fe/utils/navigator.dart';
 import 'package:invoice_management_flutter_fe/utils/toaster.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
 import 'package:invoice_management_flutter_fe/widgets/data_table.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
+import 'package:provider/provider.dart';
 
 class Customers extends StatefulWidget {
   const Customers({super.key});
@@ -44,7 +42,7 @@ class _CustomersState extends State<Customers> {
   @override
   void initState() {
     super.initState();
-    context.read<UserBloc>().add(LoadUsersEvent());
+    Provider.of<UserProvider>(context, listen: false).getUsers();
   }
 
   @override
@@ -74,32 +72,17 @@ class _CustomersState extends State<Customers> {
 
             SizedBox(height: 20),
 
-            BlocBuilder<UserBloc, UserState>(
-              builder: (context, state) {
-                if (state is UserLoadingState) {
-                  return Center(child: CircularProgressIndicator());
-                }
-
-                if (state is UserErrorState) {
-                  return Center(child: text(state.error));
-                }
-
-                if (state is UserLoadedState) {
-                  return ReusableDataTable(
-                    columns: _buildColumns(),
-                    data: state.users
-                        .map((e) => e.toJson() as Map<String, dynamic>)
-                        .toList(),
-                    showSerialNumber: true,
-                    serialNumberColumnName: 'S.No',
-                    rowsPerPage: 10,
-                    showSearch: true,
-                    searchHint: 'Search customers...',
-                  );
-                }
-
-                return Center(child: text('No data available'));
-              },
+            ReusableDataTable(
+              columns: _buildColumns(),
+              data: Provider.of<UserProvider>(
+                context,
+                listen: true,
+              ).users.map((e) => e.toJson()).toList(),
+              showSerialNumber: true,
+              serialNumberColumnName: 'S.No',
+              rowsPerPage: 10,
+              showSearch: true,
+              searchHint: 'Search customers...',
             ),
           ],
         ),
@@ -131,9 +114,10 @@ class _CustomersState extends State<Customers> {
           icon: Icon(Icons.delete, size: 20, color: AppColors.danger),
           onPressed: () {
             log("User Id :  ${rowData["id"]}");
-            BlocProvider.of<UserBloc>(
+            Provider.of<UserProvider>(
               context,
-            ).add(DeleteUserEvent(rowData["id"]));
+              listen: false,
+            ).deleteUser(rowData["id"]);
             Toaster.showSuccessToast(context, 'User deleted');
           },
         ),

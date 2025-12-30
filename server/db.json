@@ -11,5 +11,18 @@
       "country": "India",
       "pincode": "627757"
     }
+  ],
+  "products": [
+    {
+      "id": "12abb060-40a5-4203-9655-a2e1e7016908",
+      "name": "MRF Tyre",
+      "category": "Other",
+      "unitOfMeasurement": "Piece (pcs)",
+      "openingStock": 100,
+      "minimumStockLevel": 100,
+      "costPrice": 259,
+      "sellingPrice": 349,
+      "status": "In Stock"
+    }
   ]
 }

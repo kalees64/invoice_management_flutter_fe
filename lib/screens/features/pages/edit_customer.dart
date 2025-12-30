@@ -1,15 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
 import 'package:invoice_management_flutter_fe/models/user_model.dart';
-import 'package:invoice_management_flutter_fe/store/user/user_bloc.dart';
-import 'package:invoice_management_flutter_fe/store/user/user_event.dart';
+import 'package:invoice_management_flutter_fe/providers/user_provider.dart';
 import 'package:invoice_management_flutter_fe/utils/navigator.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
 import 'package:invoice_management_flutter_fe/widgets/input.dart';
+import 'package:provider/provider.dart';
 
 class EditCustomer extends StatefulWidget {
   final UserModel user;
@@ -47,9 +46,7 @@ class _EditCustomerState extends State<EditCustomer> {
       );
 
       log(user.toJson().toString());
-      BlocProvider.of<UserBloc>(
-        context,
-      ).add(UpdateUserEvent(user.id!, user.toJson()));
+      Provider.of<UserProvider>(context, listen: false).updateUser(user);
       popPage(context);
     }
     stopLoading();

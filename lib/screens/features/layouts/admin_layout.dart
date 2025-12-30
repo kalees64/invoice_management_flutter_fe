@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
 import 'package:invoice_management_flutter_fe/models/user_model.dart';
 import 'package:invoice_management_flutter_fe/screens/features/customers.dart';
@@ -12,7 +11,6 @@ import 'package:invoice_management_flutter_fe/screens/features/pages/add_product
 import 'package:invoice_management_flutter_fe/screens/features/pages/edit_customer.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_header.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_sidebar.dart';
-import 'package:invoice_management_flutter_fe/store/products/product_bloc.dart';
 
 // ignore: must_be_immutable
 class AdminLayout extends StatefulWidget {
@@ -160,43 +158,40 @@ class _AdminLayoutState extends State<AdminLayout> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return BlocProvider.value(
-      value: BlocProvider.of<ProductBloc>(context),
-      child: Scaffold(
-        body: Container(
-          width: width,
-          height: height,
-          color: AppColors.transparent,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: width * 0.2,
-                height: height,
-                color: AppColors.sidebarBackground,
-                child: AdminSidebar(
-                  sidebarItems: _pages,
-                  settingsMenus: settingsMenus,
-                  activeItem: _activeItem,
-                  onItemTap: _handleSidebarItemTap,
+    return Scaffold(
+      body: Container(
+        width: width,
+        height: height,
+        color: AppColors.transparent,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: width * 0.2,
+              height: height,
+              color: AppColors.sidebarBackground,
+              child: AdminSidebar(
+                sidebarItems: _pages,
+                settingsMenus: settingsMenus,
+                activeItem: _activeItem,
+                onItemTap: _handleSidebarItemTap,
+              ),
+            ),
+            Expanded(
+              child: Container(
+                color: AppColors.white,
+                child: Column(
+                  children: [
+                    AdminHeader(
+                      activePage: _activeItem,
+                      backButton: _pages[_activeItem]!['backButton'] as bool,
+                    ),
+                    Expanded(child: _currentPage),
+                  ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  color: AppColors.white,
-                  child: Column(
-                    children: [
-                      AdminHeader(
-                        activePage: _activeItem,
-                        backButton: _pages[_activeItem]!['backButton'] as bool,
-                      ),
-                      Expanded(child: _currentPage),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -13,14 +13,15 @@ import 'package:invoice_management_flutter_fe/widgets/input.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-class AddProduct extends StatefulWidget {
-  const AddProduct({super.key});
+class EditProduct extends StatefulWidget {
+  final ProductModel product;
+  const EditProduct({super.key, required this.product});
 
   @override
-  State<AddProduct> createState() => _AddProductState();
+  State<EditProduct> createState() => _EditProductState();
 }
 
-class _AddProductState extends State<AddProduct> {
+class _EditProductState extends State<EditProduct> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _openingStockController = TextEditingController();
@@ -38,7 +39,7 @@ class _AddProductState extends State<AddProduct> {
     startLoading();
     if (_formKey.currentState!.validate()) {
       ProductModel product = ProductModel(
-        id: uuid.v4(),
+        id: widget.product.id,
         name: _nameController.text,
         category: selectedCategory,
         unitOfMeasurement: selectedUnitOfMeasurement,
@@ -50,7 +51,10 @@ class _AddProductState extends State<AddProduct> {
       );
 
       log(product.toString());
-      Provider.of<ProductProvider>(context, listen: false).addProduct(product);
+      Provider.of<ProductProvider>(
+        context,
+        listen: false,
+      ).updateProduct(product);
       popPage(context);
     }
     stopLoading();
@@ -66,6 +70,20 @@ class _AddProductState extends State<AddProduct> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.product.name;
+    _openingStockController.text = widget.product.openingStock.toString();
+    _minimumStockLevelController.text = widget.product.minimumStockLevel
+        .toString();
+    _costPriceController.text = widget.product.costPrice.toString();
+    _sellingPriceController.text = widget.product.sellingPrice.toString();
+    selectedCategory = widget.product.category;
+    selectedUnitOfMeasurement = widget.product.unitOfMeasurement;
+    selectedStatus = widget.product.status;
   }
 
   @override
@@ -92,6 +110,28 @@ class _AddProductState extends State<AddProduct> {
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 20,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    h1("Update Product"),
+                    button(
+                      "Close",
+                      onPressed: () {
+                        popPage(context);
+                      },
+                      width: 100,
+                      height: 35,
+                      paddingY: 0,
+                      paddingX: 5,
+                      fontSize: 14,
+                      btnColor: AppColors.danger,
+                      icon: Icons.close,
+                    ),
+                  ],
+                ),
+
+                Divider(),
                 Row(
                   spacing: 15,
                   children: [
