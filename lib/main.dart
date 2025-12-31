@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:invoice_management_flutter_fe/providers/product_provider.dart';
+import 'package:invoice_management_flutter_fe/providers/quotation_provider.dart';
 import 'package:invoice_management_flutter_fe/providers/user_provider.dart';
 import 'package:invoice_management_flutter_fe/screens/landing_screen.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => QuotationProvider()),
       ],
       child: const MainApp(),
     ),

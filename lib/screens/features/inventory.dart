@@ -116,7 +116,7 @@ class _InventoryState extends State<Inventory> {
               context: context,
               builder: (context) {
                 return Container(
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(20),
                   child: EditProduct(product: ProductModel.fromJson(rowData)),
                 );
               },
