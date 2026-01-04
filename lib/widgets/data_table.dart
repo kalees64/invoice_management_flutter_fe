@@ -30,6 +30,7 @@ class ReusableDataTable extends StatefulWidget {
   final String serialNumberColumnName;
   final int rowsPerPage;
   final bool showSearch;
+  final bool showPagination;
   final String searchHint;
   final Color? headerColor;
   final Color? evenRowColor;
@@ -43,6 +44,7 @@ class ReusableDataTable extends StatefulWidget {
     this.serialNumberColumnName = 'S.No',
     this.rowsPerPage = 10,
     this.showSearch = true,
+    this.showPagination = true,
     this.searchHint = 'Search...',
     this.headerColor,
     this.evenRowColor,
@@ -127,7 +129,7 @@ class _ReusableDataTableState extends State<ReusableDataTable> {
         const SizedBox(height: 16),
         _buildTable(),
         const SizedBox(height: 16),
-        _buildPagination(),
+        if (widget.showPagination) _buildPagination(),
       ],
     );
   }

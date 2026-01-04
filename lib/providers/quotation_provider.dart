@@ -13,4 +13,9 @@ class QuotationProvider extends ChangeNotifier {
     _quotations = res;
     notifyListeners();
   }
+
+  void addQuotation(QuotationModel quotation) async {
+    await QuotationRepository(QuotationService()).create(quotation.toJson());
+    getQuotations();
+  }
 }

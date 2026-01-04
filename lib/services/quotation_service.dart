@@ -25,4 +25,8 @@ class QuotationService {
   Future<Response> getQuotations() async {
     return await api.get('/quotations');
   }
+
+  Future<Response> createQuotation(Map<String, dynamic> data) async {
+    return await api.post('/quotations', data: data);
+  }
 }

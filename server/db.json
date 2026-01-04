@@ -10,6 +10,28 @@
       "state": "Tamil Nadu",
       "country": "India",
       "pincode": "627757"
+    },
+    {
+      "id": "b905ae25-6199-4a91-b272-1643514226a0",
+      "name": "Ram",
+      "email": "ram@gmail.com",
+      "phone": "6374568756",
+      "address": "Pavoorchatram",
+      "city": "Tenkasi",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "pincode": "627765"
+    },
+    {
+      "id": null,
+      "name": "Praveen",
+      "email": "ppk@gmail.com",
+      "phone": "7867566576",
+      "address": "Palayamkottai",
+      "city": "Tirunelveli",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "pincode": "627701"
     }
   ],
   "products": [
@@ -28,7 +50,7 @@
   "quotations": [
     {
       "id": "12abb060-40a5-4203-9655-a2e1e7016908",
-      "quotationNo": "QTN-001",
+      "quotationNo": "QTN-1",
       "revisionNo": 1,
       "customer": {
         "id": "110ec58a-a0f2-4ac4-8393-c866d813b8d1",
@@ -57,6 +79,38 @@
       "total": 349,
       "status": "DRAFT",
       "date": "2025-09-10T18:30:00.000Z"
+    },
+    {
+      "id": "de6488ff-71c8-41b8-8125-7bf9bc027fc1",
+      "quotationNo": "QTN-2",
+      "revisionNo": 1,
+      "customer": {
+        "id": null,
+        "name": "Praveen",
+        "email": "ppk@gmail.com",
+        "phone": "7867566576",
+        "address": "Palayamkottai",
+        "city": "Tirunelveli",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "pincode": "627701"
+      },
+      "products": [
+        {
+          "id": "12abb060-40a5-4203-9655-a2e1e7016908",
+          "name": "MRF Tyre",
+          "category": "Other",
+          "unitOfMeasurement": "Piece (pcs)",
+          "openingStock": 100,
+          "minimumStockLevel": 100,
+          "costPrice": 259,
+          "sellingPrice": 349,
+          "status": "In Stock"
+        }
+      ],
+      "total": 411.82,
+      "status": "DRAFT",
+      "date": "2026-01-04T17:52:37.997"
     }
   ]
 }
