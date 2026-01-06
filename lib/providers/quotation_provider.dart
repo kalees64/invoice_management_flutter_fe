@@ -18,4 +18,16 @@ class QuotationProvider extends ChangeNotifier {
     await QuotationRepository(QuotationService()).create(quotation.toJson());
     getQuotations();
   }
+
+  void updateQuotation(QuotationModel quotation) async {
+    await QuotationRepository(
+      QuotationService(),
+    ).updateQuotation(quotation.id!, quotation.toJson());
+    getQuotations();
+  }
+
+  void deleteQuotation(String id) async {
+    await QuotationRepository(QuotationService()).deleteQuotation(id);
+    getQuotations();
+  }
 }

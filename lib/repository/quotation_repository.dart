@@ -15,4 +15,16 @@ class QuotationRepository {
     final res = await quotationService.createQuotation(data);
     return QuotationModel.fromJson(res.data);
   }
+
+  Future<QuotationModel> updateQuotation(
+    String id,
+    Map<String, dynamic> data,
+  ) async {
+    final res = await quotationService.updateQuotation(id, data);
+    return QuotationModel.fromJson(res.data);
+  }
+
+  Future<void> deleteQuotation(String id) async {
+    await quotationService.deleteQuotation(id);
+  }
 }

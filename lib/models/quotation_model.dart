@@ -8,7 +8,7 @@ class QuotationModel {
   final UserModel customer;
   final List<ProductModel> products;
   final double total;
-  final String status; // DRAFT, SENT, ACCEPTED, REJECTED
+  String status; // DRAFT, SENT, ACCEPTED, REJECTED
   final DateTime date;
 
   QuotationModel({

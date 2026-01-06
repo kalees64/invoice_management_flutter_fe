@@ -3,8 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
+import 'package:invoice_management_flutter_fe/models/product_model.dart';
+import 'package:invoice_management_flutter_fe/models/quotation_model.dart';
+import 'package:invoice_management_flutter_fe/models/user_model.dart';
 import 'package:invoice_management_flutter_fe/providers/quotation_provider.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/create_quotation.dart';
+import 'package:invoice_management_flutter_fe/utils/toaster.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
 import 'package:invoice_management_flutter_fe/widgets/data_table.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
@@ -100,80 +104,143 @@ class _QuotationsState extends State<Quotations> {
             },
             color: AppColors.white,
             itemBuilder: (context) => [
-              // if (rowData['status'] == 'DRAFT')
-              PopupMenuItem(
-                value: 'send',
-                child: Row(
-                  children: [
-                    Icon(Icons.email_outlined, size: 18),
-                    SizedBox(width: 8),
-                    text('Sent via Email'),
-                  ],
+              if (rowData['status'] == 'DRAFT')
+                PopupMenuItem(
+                  value: 'send',
+                  onTap: () {
+                    final quotation = QuotationModel(
+                      id: rowData['id'],
+                      quotationNo: rowData['quotationNo'],
+                      revisionNo: rowData['revisionNo'],
+                      customer: UserModel.fromJson(rowData['customer']),
+                      products: (rowData['products'] as List)
+                          .map((e) => ProductModel.fromJson(e))
+                          .toList(),
+                      total: rowData['total'],
+                      status: 'SENT',
+                      date: DateTime.now(),
+                    );
+
+                    Provider.of<QuotationProvider>(
+                      context,
+                      listen: false,
+                    ).updateQuotation(quotation);
+                    Toaster.showSuccessToast(context, 'Quotation sent');
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.email_outlined, size: 18),
+                      SizedBox(width: 8),
+                      text('Sent via Email'),
+                    ],
+                  ),
                 ),
-              ),
-              // if (rowData['status'] == 'ACCEPTED')
-              PopupMenuItem(
-                value: 'createInvoice',
-                child: Row(
-                  children: [
-                    Icon(Icons.receipt_long_outlined, size: 18),
-                    SizedBox(width: 8),
-                    text('Create Invoice'),
-                  ],
+              if (rowData['status'] == 'ACCEPTED')
+                PopupMenuItem(
+                  value: 'createInvoice',
+                  child: Row(
+                    children: [
+                      Icon(Icons.receipt_long_outlined, size: 18),
+                      SizedBox(width: 8),
+                      text('Create Invoice'),
+                    ],
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'revision',
-                child: Row(
-                  children: [
-                    Icon(Icons.history, size: 18),
-                    SizedBox(width: 8),
-                    text('Create New Revision'),
-                  ],
+              if (rowData['status'] == 'SENT' ||
+                  // rowData['status'] == 'DRAFT' ||
+                  rowData['status'] == 'REJECTED')
+                PopupMenuItem(
+                  value: 'revision',
+                  onTap: () {
+                    log('Create new revision $rowData');
+                    final quotation = QuotationModel.fromJson(rowData);
+                    showDialog(
+                      context: context,
+                      builder: (_) => Container(
+                        padding: EdgeInsets.all(20),
+                        child: CreateQuotation(quotation: quotation),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.history, size: 18),
+                      SizedBox(width: 8),
+                      text('Create New Revision'),
+                    ],
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'markAccepted',
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.task_outlined,
-                      size: 18,
-                      color: AppColors.success,
-                    ),
-                    SizedBox(width: 8),
-                    text('Mark as Accepted', color: AppColors.success),
-                  ],
+              if (rowData['status'] == 'SENT')
+                PopupMenuItem(
+                  value: 'markAccepted',
+                  onTap: () {
+                    var quotation = QuotationModel.fromJson(rowData);
+                    quotation.status = 'ACCEPTED';
+                    log(quotation.toJson().toString());
+                    Provider.of<QuotationProvider>(
+                      context,
+                      listen: false,
+                    ).updateQuotation(quotation);
+                    Toaster.showSuccessToast(context, 'Quotation accepted');
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.task_outlined,
+                        size: 18,
+                        color: AppColors.success,
+                      ),
+                      SizedBox(width: 8),
+                      text('Mark as Accepted', color: AppColors.success),
+                    ],
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'markRejected',
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.warning_amber,
-                      size: 18,
-                      color: AppColors.danger,
-                    ),
-                    SizedBox(width: 8),
-                    text('Mark as Rejected', color: AppColors.danger),
-                  ],
+              if (rowData['status'] == 'SENT')
+                PopupMenuItem(
+                  value: 'markRejected',
+                  onTap: () {
+                    var quotation = QuotationModel.fromJson(rowData);
+                    quotation.status = 'REJECTED';
+                    Provider.of<QuotationProvider>(
+                      context,
+                      listen: false,
+                    ).updateQuotation(quotation);
+                    Toaster.showSuccessToast(context, 'Quotation rejected');
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.warning_amber,
+                        size: 18,
+                        color: AppColors.danger,
+                      ),
+                      SizedBox(width: 8),
+                      text('Mark as Rejected', color: AppColors.danger),
+                    ],
+                  ),
                 ),
-              ),
-              PopupMenuItem(
-                value: 'delete',
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.delete_outline,
-                      size: 18,
-                      color: AppColors.danger,
-                    ),
-                    SizedBox(width: 8),
-                    text('Delete', color: AppColors.danger),
-                  ],
+              if (rowData['status'] == 'DRAFT')
+                PopupMenuItem(
+                  value: 'delete',
+                  onTap: () {
+                    Provider.of<QuotationProvider>(
+                      context,
+                      listen: false,
+                    ).deleteQuotation(rowData['id']);
+                    Toaster.showSuccessToast(context, 'Quotation deleted');
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete_outline,
+                        size: 18,
+                        color: AppColors.danger,
+                      ),
+                      SizedBox(width: 8),
+                      text('Delete', color: AppColors.danger),
+                    ],
+                  ),
                 ),
-              ),
             ],
           );
         },

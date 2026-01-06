@@ -29,4 +29,12 @@ class QuotationService {
   Future<Response> createQuotation(Map<String, dynamic> data) async {
     return await api.post('/quotations', data: data);
   }
+
+  Future<Response> updateQuotation(String id, Map<String, dynamic> data) async {
+    return await api.put('/quotations/$id', data: data);
+  }
+
+  Future<Response> deleteQuotation(String id) async {
+    return await api.delete('/quotations/$id');
+  }
 }

@@ -30,7 +30,8 @@ class QuotationProduct {
 }
 
 class CreateQuotation extends StatefulWidget {
-  const CreateQuotation({super.key});
+  final QuotationModel? quotation;
+  const CreateQuotation({super.key, this.quotation});
 
   @override
   State<CreateQuotation> createState() => _CreateQuotationState();
@@ -48,6 +49,12 @@ class _CreateQuotationState extends State<CreateQuotation> {
       Provider.of<UserProvider>(context, listen: false).getUsers();
       Provider.of<ProductProvider>(context, listen: false).getProducts();
     });
+    if (widget.quotation != null) {
+      selectedCustomer = widget.quotation!.customer;
+      quotationProducts = widget.quotation!.products
+          .map((e) => QuotationProduct(product: e, quantity: 1))
+          .toList();
+    }
   }
 
   double get subtotal =>
@@ -104,6 +111,7 @@ class _CreateQuotationState extends State<CreateQuotation> {
         onQuantityChanged: (newQuantity) {
           setState(() {
             quotationProducts[index].quantity = newQuantity;
+            quotationProducts[index].product.quantity = newQuantity;
           });
         },
       ),
@@ -117,13 +125,37 @@ class _CreateQuotationState extends State<CreateQuotation> {
   }
 
   void _saveQuotationAsDraft(BuildContext context) {
+    final qutationNo = widget.quotation != null
+        ? widget.quotation!.quotationNo
+        : 'QTN-${context.read<QuotationProvider>().quotations.length + 1}';
+
+    final revisionNo = widget.quotation != null
+        ? widget.quotation!.revisionNo + 1
+        : 1;
+
+    final List<ProductModel> products = quotationProducts
+        .map(
+          (e) => ProductModel(
+            id: e.product.id,
+            name: e.product.name,
+            category: e.product.category,
+            unitOfMeasurement: e.product.unitOfMeasurement,
+            openingStock: e.product.openingStock,
+            minimumStockLevel: e.product.minimumStockLevel,
+            costPrice: e.product.costPrice,
+            sellingPrice: e.product.sellingPrice,
+            status: e.product.status,
+            quantity: e.quantity,
+          ),
+        )
+        .toList();
+
     final quotation = QuotationModel(
       id: uuid.v4(),
-      quotationNo:
-          'QTN-${context.read<QuotationProvider>().quotations.length + 1}',
-      revisionNo: 1,
+      quotationNo: qutationNo,
+      revisionNo: revisionNo,
       customer: selectedCustomer!,
-      products: quotationProducts.map((e) => e.product).toList(),
+      products: products,
       total: grandTotal,
       status: 'DRAFT',
       date: DateTime.now(),
@@ -150,7 +182,11 @@ class _CreateQuotationState extends State<CreateQuotation> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  h1("Create Quotation"),
+                  h1(
+                    widget.quotation != null
+                        ? "${widget.quotation!.quotationNo} - Create Revision"
+                        : "Create Quotation",
+                  ),
                   button(
                     "Close",
                     onPressed: () => popPage(context),
@@ -217,14 +253,15 @@ class _CreateQuotationState extends State<CreateQuotation> {
                           ],
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.edit, color: AppColors.primary),
-                        onPressed: () {
-                          setState(() {
-                            selectedCustomer = null;
-                          });
-                        },
-                      ),
+                      if (widget.quotation == null)
+                        IconButton(
+                          icon: Icon(Icons.edit, color: AppColors.primary),
+                          onPressed: () {
+                            setState(() {
+                              selectedCustomer = null;
+                            });
+                          },
+                        ),
                     ],
                   ),
                 ),
@@ -303,7 +340,14 @@ class _CreateQuotationState extends State<CreateQuotation> {
           return text(product['name'] ?? '-');
         },
       ),
-      TableColumnConfig(fieldName: 'quantity', displayName: 'Quantity'),
+      TableColumnConfig(
+        fieldName: 'quantity',
+        displayName: 'Quantity',
+        customWidget: (value, index, rowData) {
+          final product = rowData['product'] as Map<String, dynamic>;
+          return text(product['quantity'].toString());
+        },
+      ),
       TableColumnConfig(
         fieldName: 'price',
         displayName: 'Price',
@@ -347,7 +391,14 @@ class _CreateQuotationState extends State<CreateQuotation> {
 
     return ReusableDataTable(
       columns: columns,
-      data: quotationProducts.map((QuotationProduct e) => e.toJson()).toList(),
+      data: quotationProducts
+          .map(
+            (QuotationProduct e) => {
+              'product': e.product.toJson(),
+              'quantity': e.quantity,
+            },
+          )
+          .toList(),
       showSerialNumber: true,
       serialNumberColumnName: 'S.No',
       rowsPerPage: 10,
@@ -888,7 +939,7 @@ class _EditProductDialogState extends State<_EditProductDialog> {
   void initState() {
     super.initState();
     quantityController = TextEditingController(
-      text: widget.quotationProduct.quantity.toString(),
+      text: widget.quotationProduct.product.quantity.toString(),
     );
   }
 

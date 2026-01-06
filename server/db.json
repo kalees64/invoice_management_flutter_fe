@@ -73,12 +73,13 @@
           "minimumStockLevel": 100,
           "costPrice": 259,
           "sellingPrice": 349,
-          "status": "In Stock"
+          "status": "In Stock",
+          "quantity": null
         }
       ],
       "total": 349,
-      "status": "DRAFT",
-      "date": "2025-09-10T18:30:00.000Z"
+      "status": "ACCEPTED",
+      "date": "2026-01-06T06:48:21.582"
     },
     {
       "id": "de6488ff-71c8-41b8-8125-7bf9bc027fc1",
@@ -105,12 +106,79 @@
           "minimumStockLevel": 100,
           "costPrice": 259,
           "sellingPrice": 349,
-          "status": "In Stock"
+          "status": "In Stock",
+          "quantity": null
         }
       ],
       "total": 411.82,
-      "status": "DRAFT",
-      "date": "2026-01-04T17:52:37.997"
+      "status": "REJECTED",
+      "date": "2026-01-06T06:52:52.843"
+    },
+    {
+      "id": "2ac7fc96-a4ea-4f67-a248-4df3ff8bf1e4",
+      "quotationNo": "QTN-3",
+      "revisionNo": 1,
+      "customer": {
+        "id": "b905ae25-6199-4a91-b272-1643514226a0",
+        "name": "Ram",
+        "email": "ram@gmail.com",
+        "phone": "6374568756",
+        "address": "Pavoorchatram",
+        "city": "Tenkasi",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "pincode": "627765"
+      },
+      "products": [
+        {
+          "id": "12abb060-40a5-4203-9655-a2e1e7016908",
+          "name": "MRF Tyre",
+          "category": "Other",
+          "unitOfMeasurement": "Piece (pcs)",
+          "openingStock": 100,
+          "minimumStockLevel": 100,
+          "costPrice": 259,
+          "sellingPrice": 349,
+          "status": "In Stock",
+          "quantity": 1
+        }
+      ],
+      "total": 411.82,
+      "status": "REJECTED",
+      "date": "2026-01-06T06:54:35.004"
+    },
+    {
+      "id": "d38a1b2b-e1ba-4d62-bb47-a3f37e8d3711",
+      "quotationNo": "QTN-3",
+      "revisionNo": 2,
+      "customer": {
+        "id": "b905ae25-6199-4a91-b272-1643514226a0",
+        "name": "Ram",
+        "email": "ram@gmail.com",
+        "phone": "6374568756",
+        "address": "Pavoorchatram",
+        "city": "Tenkasi",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "pincode": "627765"
+      },
+      "products": [
+        {
+          "id": "12abb060-40a5-4203-9655-a2e1e7016908",
+          "name": "MRF Tyre",
+          "category": "Other",
+          "unitOfMeasurement": "Piece (pcs)",
+          "openingStock": 100,
+          "minimumStockLevel": 100,
+          "costPrice": 259,
+          "sellingPrice": 349,
+          "status": "In Stock",
+          "quantity": 4
+        }
+      ],
+      "total": 1647.28,
+      "status": "ACCEPTED",
+      "date": "2026-01-06T06:55:31.431"
     }
   ]
 }

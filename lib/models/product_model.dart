@@ -8,6 +8,7 @@ class ProductModel {
   double costPrice;
   double sellingPrice;
   String status;
+  int? quantity;
 
   ProductModel({
     required this.id,
@@ -19,6 +20,7 @@ class ProductModel {
     required this.costPrice,
     required this.sellingPrice,
     required this.status,
+    this.quantity = 1,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class ProductModel {
       costPrice: json['costPrice'],
       sellingPrice: json['sellingPrice'],
       status: json['status'],
+      quantity: json['quantity'],
     );
   }
 
@@ -46,12 +49,13 @@ class ProductModel {
       'costPrice': costPrice,
       'sellingPrice': sellingPrice,
       'status': status,
+      'quantity': quantity,
     };
   }
 
   @override
   String toString() {
-    return 'ProductModel{id: $id, name: $name, category: $category, unitOfMeasurement: $unitOfMeasurement, openingStock: $openingStock, minimumStockLevel: $minimumStockLevel, costPrice: $costPrice, sellingPrice: $sellingPrice, status: $status}';
+    return 'ProductModel{id: $id, name: $name, category: $category, unitOfMeasurement: $unitOfMeasurement, openingStock: $openingStock, minimumStockLevel: $minimumStockLevel, costPrice: $costPrice, sellingPrice: $sellingPrice, status: $status}, quantity: $quantity';
   }
 
   ProductModel copyWith({
@@ -64,6 +68,7 @@ class ProductModel {
     double? costPrice,
     double? sellingPrice,
     String? status,
+    int? quantity,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -75,6 +80,7 @@ class ProductModel {
       costPrice: costPrice ?? this.costPrice,
       sellingPrice: sellingPrice ?? this.sellingPrice,
       status: status ?? this.status,
+      quantity: quantity ?? this.quantity,
     );
   }
 }

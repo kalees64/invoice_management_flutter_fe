@@ -7,7 +7,7 @@ class Toaster {
         content: Text(message),
         backgroundColor: Colors.red,
         duration: Duration(seconds: 2),
-        action: SnackBarAction(label: 'undo', onPressed: () {}),
+        // action: SnackBarAction(label: 'Undo', onPressed: () {}),
       ),
     );
   }
@@ -18,7 +18,7 @@ class Toaster {
         content: Text(message),
         backgroundColor: Colors.green,
         duration: Duration(seconds: 2),
-        action: SnackBarAction(label: 'undo', onPressed: () {}),
+        // action: SnackBarAction(label: 'Undo', onPressed: () {}),
       ),
     );
   }
