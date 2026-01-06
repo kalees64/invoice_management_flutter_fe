@@ -6,6 +6,7 @@ import 'package:invoice_management_flutter_fe/models/user_model.dart';
 import 'package:invoice_management_flutter_fe/screens/features/customers.dart';
 import 'package:invoice_management_flutter_fe/screens/features/dashboard.dart';
 import 'package:invoice_management_flutter_fe/screens/features/inventory.dart';
+import 'package:invoice_management_flutter_fe/screens/features/invoice.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/add_customer.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/add_product.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/edit_customer.dart';
@@ -100,7 +101,7 @@ class _AdminLayoutState extends State<AdminLayout> {
         'backButton': false,
       },
       'invoices': {
-        'widget': Placeholder(),
+        'widget': InvoicePage(),
         'icon': Icons.receipt_long,
         'visible': true,
         'backButton': false,

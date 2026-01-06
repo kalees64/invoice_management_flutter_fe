@@ -7,6 +7,7 @@ import 'package:invoice_management_flutter_fe/models/product_model.dart';
 import 'package:invoice_management_flutter_fe/models/quotation_model.dart';
 import 'package:invoice_management_flutter_fe/models/user_model.dart';
 import 'package:invoice_management_flutter_fe/providers/quotation_provider.dart';
+import 'package:invoice_management_flutter_fe/screens/features/pages/create_invoice.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/create_quotation.dart';
 import 'package:invoice_management_flutter_fe/utils/toaster.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
@@ -138,6 +139,19 @@ class _QuotationsState extends State<Quotations> {
               if (rowData['status'] == 'ACCEPTED')
                 PopupMenuItem(
                   value: 'createInvoice',
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          padding: EdgeInsets.all(20),
+                          child: CreateInvoice(
+                            quotation: QuotationModel.fromJson(rowData),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.receipt_long_outlined, size: 18),

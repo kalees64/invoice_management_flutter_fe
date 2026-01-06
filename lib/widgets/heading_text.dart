@@ -49,6 +49,7 @@ Widget text(
   Color? color = AppColors.black,
   double fontSize = 14,
   FontWeight? fontWeight = FontWeight.normal,
+  int maxLines = 1,
 }) {
   return Text(
     text,
@@ -60,6 +61,7 @@ Widget text(
       decoration: TextDecoration.none,
       decorationColor: null,
     ),
+    maxLines: maxLines,
   );
 }
 

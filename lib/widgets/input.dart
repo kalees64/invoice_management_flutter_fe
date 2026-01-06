@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
 import 'package:invoice_management_flutter_fe/constants/font.dart';
 
 Widget input({
+  BuildContext? context,
   String placeholder = "Enter text",
   Icon? prefixIcon,
   dynamic sufficIcon,
@@ -30,6 +32,13 @@ Widget input({
   FontWeight fontWeight = FontWeight.w700,
   TextCapitalization textCapitalization = TextCapitalization.none,
   String obscuringCharacter = "•",
+
+  // Date Picker
+  bool isDatePicker = false,
+  DateTime? initialDate,
+  DateTime? firstDate,
+  DateTime? lastDate,
+  Function(DateTime)? onDateSelected,
 }) {
   return TextFormField(
     autofocus: autofocus,
@@ -38,7 +47,7 @@ Widget input({
     enabled: !disabled,
     controller: controller,
     keyboardType: keyboardType,
-    readOnly: readOnly,
+    readOnly: readOnly || isDatePicker,
     onChanged: onChanged,
     onSaved: onSaved,
     validator: validator,
@@ -52,7 +61,9 @@ Widget input({
       labelText: lableText,
       hintText: placeholder,
       prefixIcon: prefixIcon,
-      suffixIcon: sufficIcon,
+      suffixIcon: isDatePicker
+          ? const Icon(Icons.calendar_today, size: 18)
+          : sufficIcon,
       border: hideBorder && hideUnderline
           ? InputBorder.none
           : hideBorder
@@ -111,5 +122,21 @@ Widget input({
       filled: false,
       fillColor: fillColor,
     ),
+    // Date Picket
+    onTap: isDatePicker
+        ? () async {
+            final pickedDate = await showDatePicker(
+              context: context!,
+              initialDate: initialDate ?? DateTime.now(),
+              firstDate: firstDate ?? DateTime(2000),
+              lastDate: lastDate ?? DateTime(2100),
+            );
+
+            if (pickedDate != null) {
+              controller!.text = DateFormat('dd MMM yyyy').format(pickedDate);
+              onDateSelected?.call(pickedDate);
+            }
+          }
+        : null,
   );
 }

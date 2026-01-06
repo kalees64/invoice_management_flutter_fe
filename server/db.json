@@ -180,5 +180,34 @@
       "status": "ACCEPTED",
       "date": "2026-01-06T06:55:31.431"
     }
+  ],
+  "invoices": [
+    {
+      "id": "b2521db7-b503-4484-a9c6-e51bde068cea",
+      "invoiceNo": "INV-1",
+      "quotationId": "d38a1b2b-e1ba-4d62-bb47-a3f37e8d3711",
+      "quotationNo": "QTN-3",
+      "installmentNo": 1,
+      "totalInstallments": 3,
+      "installmentAmount": 800,
+      "customer": {
+        "id": "b905ae25-6199-4a91-b272-1643514226a0",
+        "name": "Ram",
+        "email": "ram@gmail.com",
+        "phone": "6374568756",
+        "address": "Pavoorchatram",
+        "city": "Tenkasi",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "pincode": "627765"
+      },
+      "totalQuotationAmount": 1647.28,
+      "paidAmount": 0,
+      "balanceAmount": 1647.28,
+      "status": "DRAFT",
+      "invoiceDate": "2026-01-06T16:55:11.163",
+      "dueDate": "2026-01-30T00:00:00.000",
+      "paidDate": null
+    }
   ]
 }
