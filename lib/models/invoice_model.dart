@@ -5,9 +5,7 @@ class InvoiceModel {
   final String invoiceNo;
   final String quotationId;
   final String quotationNo;
-  int installmentNo;
-  int totalInstallments;
-  double installmentAmount;
+  double partAmount;
   final UserModel customer;
   double totalQuotationAmount;
   double paidAmount;
@@ -22,9 +20,7 @@ class InvoiceModel {
     required this.invoiceNo,
     required this.quotationId,
     required this.quotationNo,
-    required this.installmentNo,
-    required this.totalInstallments,
-    required this.installmentAmount,
+    required this.partAmount,
     required this.customer,
     required this.totalQuotationAmount,
     required this.paidAmount,
@@ -41,9 +37,7 @@ class InvoiceModel {
       invoiceNo: json['invoiceNo'],
       quotationId: json['quotationId'],
       quotationNo: json['quotationNo'],
-      installmentNo: json['installmentNo'],
-      totalInstallments: json['totalInstallments'],
-      installmentAmount: json['installmentAmount'],
+      partAmount: json['partAmount'],
       customer: UserModel.fromJson(json['customer']),
       totalQuotationAmount: json['totalQuotationAmount'],
       paidAmount: json['paidAmount'],
@@ -63,9 +57,7 @@ class InvoiceModel {
       'invoiceNo': invoiceNo,
       'quotationId': quotationId,
       'quotationNo': quotationNo,
-      'installmentNo': installmentNo,
-      'totalInstallments': totalInstallments,
-      'installmentAmount': installmentAmount,
+      'partAmount': partAmount,
       'customer': customer.toJson(),
       'totalQuotationAmount': totalQuotationAmount,
       'paidAmount': paidAmount,
@@ -79,6 +71,6 @@ class InvoiceModel {
 
   @override
   String toString() {
-    return 'InvoiceModel{id: $id, invoiceNo: $invoiceNo, quotationId: $quotationId, quotationNo: $quotationNo, installmentNo: $installmentNo, totalInstallments: $totalInstallments, installmentAmount: $installmentAmount, customer: $customer, totalQuotationAmount: $totalQuotationAmount, paidAmount: $paidAmount, balanceAmount: $balanceAmount, status: $status, invoiceDate: $invoiceDate, dueDate: $dueDate, paidDate: $paidDate}';
+    return 'InvoiceModel{id: $id, invoiceNo: $invoiceNo, quotationId: $quotationId, quotationNo: $quotationNo, partAmount: $partAmount, customer: $customer, totalQuotationAmount: $totalQuotationAmount, paidAmount: $paidAmount, balanceAmount: $balanceAmount, status: $status, invoiceDate: $invoiceDate, dueDate: $dueDate, paidDate: $paidDate}';
   }
 }

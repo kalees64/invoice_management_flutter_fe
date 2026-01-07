@@ -10,7 +10,9 @@ import 'package:invoice_management_flutter_fe/screens/features/invoice.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/add_customer.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/add_product.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/edit_customer.dart';
+import 'package:invoice_management_flutter_fe/screens/features/payments.dart';
 import 'package:invoice_management_flutter_fe/screens/features/quotations.dart';
+import 'package:invoice_management_flutter_fe/screens/features/receipts.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_header.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_sidebar.dart';
 
@@ -107,8 +109,14 @@ class _AdminLayoutState extends State<AdminLayout> {
         'backButton': false,
       },
       'payments': {
-        'widget': Placeholder(),
+        'widget': PaymentsPage(),
         'icon': Icons.payments,
+        'visible': true,
+        'backButton': false,
+      },
+      'receipts': {
+        'widget': RecriptsPage(),
+        'icon': Icons.receipt,
         'visible': true,
         'backButton': false,
       },

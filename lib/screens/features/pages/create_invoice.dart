@@ -25,9 +25,7 @@ class CreateInvoice extends StatefulWidget {
 
 class _CreateInvoiceState extends State<CreateInvoice> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController installmentNoController;
-  late TextEditingController totalInstallmentsController;
-  late TextEditingController installmentAmountController;
+  late TextEditingController partAmountController;
   late TextEditingController dueDateController;
   DateTime? selectedDueDate;
   var uuid = const Uuid();
@@ -48,17 +46,13 @@ class _CreateInvoiceState extends State<CreateInvoice> {
   @override
   void initState() {
     super.initState();
-    installmentNoController = .new();
-    totalInstallmentsController = .new();
-    installmentAmountController = .new();
+    partAmountController = .new();
     dueDateController = .new();
   }
 
   @override
   void dispose() {
-    installmentNoController.dispose();
-    totalInstallmentsController.dispose();
-    installmentAmountController.dispose();
+    partAmountController.dispose();
     dueDateController.dispose();
     super.dispose();
   }
@@ -73,9 +67,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
         invoiceNo: 'INV-${totalInvoices + 1}',
         quotationId: widget.quotation.id!,
         quotationNo: widget.quotation.quotationNo,
-        installmentNo: int.parse(installmentNoController.text),
-        totalInstallments: int.parse(totalInstallmentsController.text),
-        installmentAmount: double.parse(installmentAmountController.text),
+        partAmount: double.parse(partAmountController.text),
         customer: widget.quotation.customer,
         totalQuotationAmount: widget.quotation.total,
         paidAmount: 0,
@@ -217,62 +209,19 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                 child: Row(
                   spacing: 15,
                   children: [
-                    // Installment No.
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-
-                        children: [
-                          label("Installment No", required: true),
-                          input(
-                            placeholder: "Enter installment no.",
-                            hideBorder: true,
-                            controller: installmentNoController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Installment no. is required';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Total Installments
+                    // Part Amount
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          label("Total Installments", required: true),
+                          label("Part Amount", required: true),
                           input(
-                            placeholder: "Enter total installments",
+                            placeholder: "Enter Part amount",
                             hideBorder: true,
-                            controller: totalInstallmentsController,
+                            controller: partAmountController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Total installments is required';
-                              }
-                              return null;
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Installment Amount
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          label("Installment Amount", required: true),
-                          input(
-                            placeholder: "Enter installment amount",
-                            hideBorder: true,
-                            controller: installmentAmountController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Installment amount is required';
+                                return 'Part amount is required';
                               }
                               return null;
                             },
@@ -337,6 +286,7 @@ class _CreateInvoiceState extends State<CreateInvoice> {
                     },
                     width: 250,
                     btnColor: AppColors.success,
+                    isLoading: _isLoading,
                   ),
                 ],
               ),
