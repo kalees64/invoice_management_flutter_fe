@@ -115,9 +115,14 @@ class _InventoryState extends State<Inventory> {
             showDialog(
               context: context,
               builder: (context) {
-                return Container(
-                  padding: EdgeInsets.all(20),
-                  child: EditProduct(product: ProductModel.fromJson(rowData)),
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: EditProduct(product: ProductModel.fromJson(rowData)),
+                  ),
                 );
               },
             );

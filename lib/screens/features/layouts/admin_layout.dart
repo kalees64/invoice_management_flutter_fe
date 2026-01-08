@@ -13,6 +13,7 @@ import 'package:invoice_management_flutter_fe/screens/features/pages/edit_custom
 import 'package:invoice_management_flutter_fe/screens/features/payments.dart';
 import 'package:invoice_management_flutter_fe/screens/features/quotations.dart';
 import 'package:invoice_management_flutter_fe/screens/features/receipts.dart';
+import 'package:invoice_management_flutter_fe/screens/features/reports.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_header.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_sidebar.dart';
 
@@ -117,6 +118,12 @@ class _AdminLayoutState extends State<AdminLayout> {
       'receipts': {
         'widget': RecriptsPage(),
         'icon': Icons.receipt,
+        'visible': true,
+        'backButton': false,
+      },
+      'reports': {
+        'widget': ReportsPage(),
+        'icon': Icons.bar_chart,
         'visible': true,
         'backButton': false,
       },

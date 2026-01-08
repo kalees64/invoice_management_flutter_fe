@@ -143,10 +143,15 @@ class _QuotationsState extends State<Quotations> {
                     showDialog(
                       context: context,
                       builder: (context) {
-                        return Container(
-                          padding: EdgeInsets.all(20),
-                          child: CreateInvoice(
-                            quotation: QuotationModel.fromJson(rowData),
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: CreateInvoice(
+                              quotation: QuotationModel.fromJson(rowData),
+                            ),
                           ),
                         );
                       },
@@ -170,9 +175,14 @@ class _QuotationsState extends State<Quotations> {
                     final quotation = QuotationModel.fromJson(rowData);
                     showDialog(
                       context: context,
-                      builder: (_) => Container(
-                        padding: EdgeInsets.all(20),
-                        child: CreateQuotation(quotation: quotation),
+                      builder: (_) => Dialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: CreateQuotation(quotation: quotation),
+                        ),
                       ),
                     );
                   },

@@ -340,6 +340,53 @@
       "transactionId": null,
       "paymentStatus": "PAID",
       "receiptDate": "2026-01-07T19:10:43.257"
+    },
+    {
+      "id": "4c038441-5b7b-46b6-99e1-17bb243b4f10",
+      "receiptNo": "RCPT-1",
+      "invoice": {
+        "id": "952c630c-bab9-497b-aa30-603976f3987d",
+        "invoiceNo": "INV-1",
+        "quotationId": "d38a1b2b-e1ba-4d62-bb47-a3f37e8d3711",
+        "quotationNo": "QTN-3",
+        "partAmount": 1000,
+        "customer": {
+          "id": "b905ae25-6199-4a91-b272-1643514226a0",
+          "name": "Ram",
+          "email": "ram@gmail.com",
+          "phone": "6374568756",
+          "address": "Pavoorchatram",
+          "city": "Tenkasi",
+          "state": "Tamil Nadu",
+          "country": "India",
+          "pincode": "627765"
+        },
+        "totalQuotationAmount": 1647.28,
+        "paidAmount": 1000,
+        "balanceAmount": 647.28,
+        "status": "PAID",
+        "invoiceDate": "2026-01-07T06:29:35.995",
+        "dueDate": "2026-01-21T00:00:00.000",
+        "paidDate": "2026-01-07T06:29:45.755"
+      },
+      "customer": {
+        "id": "b905ae25-6199-4a91-b272-1643514226a0",
+        "name": "Ram",
+        "email": "ram@gmail.com",
+        "phone": "6374568756",
+        "address": "Pavoorchatram",
+        "city": "Tenkasi",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "pincode": "627765"
+      },
+      "invoiceTotal": 1647.28,
+      "paidAmount": 1000,
+      "balanceAmount": 647.28,
+      "paymentMethod": "UPI",
+      "transactionId": null,
+      "paymentStatus": "PAID",
+      "receiptDate": "2026-01-08T13:27:08.701"
     }
   ]
 }
