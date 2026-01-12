@@ -5,6 +5,8 @@ import 'package:invoice_management_flutter_fe/providers/payment_provider.dart';
 import 'package:invoice_management_flutter_fe/providers/product_provider.dart';
 import 'package:invoice_management_flutter_fe/providers/quotation_provider.dart';
 import 'package:invoice_management_flutter_fe/providers/receipt_provider.dart';
+import 'package:invoice_management_flutter_fe/providers/supplier_product_provider.dart';
+import 'package:invoice_management_flutter_fe/providers/supplier_provider.dart';
 import 'package:invoice_management_flutter_fe/providers/user_provider.dart';
 import 'package:invoice_management_flutter_fe/screens/landing_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => InvoiceProvider()),
         ChangeNotifierProvider(create: (_) => PaymentProvider()),
         ChangeNotifierProvider(create: (_) => ReceiptProvider()),
+        ChangeNotifierProvider(create: (_) => SupplierProvider()),
+        ChangeNotifierProvider(create: (_) => SupplierProductProvider()),
       ],
       child: const MainApp(),
     ),

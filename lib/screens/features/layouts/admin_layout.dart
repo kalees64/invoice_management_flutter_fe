@@ -14,6 +14,8 @@ import 'package:invoice_management_flutter_fe/screens/features/payments.dart';
 import 'package:invoice_management_flutter_fe/screens/features/quotations.dart';
 import 'package:invoice_management_flutter_fe/screens/features/receipts.dart';
 import 'package:invoice_management_flutter_fe/screens/features/reports.dart';
+import 'package:invoice_management_flutter_fe/screens/features/supplier_products.dart';
+import 'package:invoice_management_flutter_fe/screens/features/suppliers.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_header.dart';
 import 'package:invoice_management_flutter_fe/screens/features/widgets/admin_sidebar.dart';
 
@@ -124,6 +126,18 @@ class _AdminLayoutState extends State<AdminLayout> {
       'reports': {
         'widget': ReportsPage(),
         'icon': Icons.bar_chart,
+        'visible': true,
+        'backButton': false,
+      },
+      'supplier': {
+        'widget': SuppliersPage(),
+        'icon': Icons.supervisor_account,
+        'visible': true,
+        'backButton': false,
+      },
+      'supplier Products': {
+        'widget': SupplierProducts(),
+        'icon': Icons.inventory_2,
         'visible': true,
         'backButton': false,
       },

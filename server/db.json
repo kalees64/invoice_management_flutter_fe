@@ -388,5 +388,39 @@
       "paymentStatus": "PAID",
       "receiptDate": "2026-01-08T13:27:08.701"
     }
+  ],
+  "suppliers": [
+    {
+      "id": "eebbe95e-6bd8-40ce-8684-7d3590d84871",
+      "name": "MRF",
+      "email": "mrf@gmail.com",
+      "phone": "6756879867",
+      "address": "",
+      "gstin": "",
+      "pan": ""
+    }
+  ],
+  "supplier-products": [
+    {
+      "id": "6c4f120c-5710-400d-beb2-451a9dc8ffce",
+      "supplier": {
+        "id": "eebbe95e-6bd8-40ce-8684-7d3590d84871",
+        "name": "MRF",
+        "email": "mrf@gmail.com",
+        "phone": "6756879867",
+        "address": "",
+        "gstin": "",
+        "pan": ""
+      },
+      "name": "Mrf Tyres",
+      "category": "Electronics",
+      "unitOfMeasurement": "Piece (pcs)",
+      "openingStock": 5,
+      "minimumStockLevel": 50,
+      "costPrice": 80,
+      "sellingPrice": 100,
+      "status": "In Stock",
+      "quantity": 1
+    }
   ]
 }
