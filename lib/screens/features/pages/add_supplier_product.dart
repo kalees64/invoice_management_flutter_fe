@@ -140,7 +140,7 @@ class _AddSupplierProductState extends State<AddSupplierProduct> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    h1("Add Product"),
+                    h1(widget.isUpdate ? "Update Product" : "Add Product"),
                     button(
                       "Close",
                       onPressed: () => popPage(context),

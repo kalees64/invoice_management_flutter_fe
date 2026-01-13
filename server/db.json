@@ -402,7 +402,7 @@
   ],
   "supplier-products": [
     {
-      "id": "6c4f120c-5710-400d-beb2-451a9dc8ffce",
+      "id": "f81d52a9-c0cf-4bf0-bb6c-f793648a82f0",
       "supplier": {
         "id": "eebbe95e-6bd8-40ce-8684-7d3590d84871",
         "name": "MRF",
@@ -412,13 +412,13 @@
         "gstin": "",
         "pan": ""
       },
-      "name": "Mrf Tyres",
+      "name": "MRF Tyres",
       "category": "Electronics",
       "unitOfMeasurement": "Piece (pcs)",
-      "openingStock": 5,
-      "minimumStockLevel": 50,
-      "costPrice": 80,
-      "sellingPrice": 100,
+      "openingStock": 10,
+      "minimumStockLevel": 100,
+      "costPrice": 29,
+      "sellingPrice": 59,
       "status": "In Stock",
       "quantity": 1
     }

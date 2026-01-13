@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:invoice_management_flutter_fe/constants/colors.dart';
+import 'package:invoice_management_flutter_fe/models/supplier_product_model.dart';
 import 'package:invoice_management_flutter_fe/providers/supplier_product_provider.dart';
 import 'package:invoice_management_flutter_fe/providers/supplier_provider.dart';
 import 'package:invoice_management_flutter_fe/screens/features/pages/add_supplier_product.dart';
+import 'package:invoice_management_flutter_fe/utils/toaster.dart';
 import 'package:invoice_management_flutter_fe/widgets/button.dart';
 import 'package:invoice_management_flutter_fe/widgets/data_table.dart';
 import 'package:invoice_management_flutter_fe/widgets/heading_text.dart';
@@ -49,6 +53,13 @@ class _SupplierProductsState extends State<SupplierProducts> {
         displayName: 'Selling Price',
       ),
       TableColumnConfig(fieldName: 'status', displayName: 'Status'),
+      TableColumnConfig(
+        fieldName: 'actions',
+        displayName: 'Actions',
+        customWidget: (value, index, rowData) {
+          return _actionCell(value, index, rowData, context);
+        },
+      ),
     ];
   }
 
@@ -71,6 +82,8 @@ class _SupplierProductsState extends State<SupplierProducts> {
                     onPressed: () {
                       showDialog(
                         context: context,
+                        useRootNavigator: false,
+                        useSafeArea: true,
                         builder: (_) => Dialog(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -109,6 +122,49 @@ class _SupplierProductsState extends State<SupplierProducts> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _actionCell(
+    dynamic value,
+    int index,
+    Map<String, dynamic> rowData,
+    BuildContext context,
+  ) {
+    return Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.edit, size: 20, color: AppColors.success),
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (_) => Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: AddSupplierProduct(
+                    isUpdate: true,
+                    supplierProduct: SupplierProductModel.fromJson(rowData),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.delete, size: 20, color: AppColors.danger),
+          onPressed: () {
+            log("User Id :  ${rowData["id"]}");
+            Provider.of<SupplierProductProvider>(
+              context,
+              listen: false,
+            ).deleteSupplierProduct(rowData["id"]);
+            Toaster.showSuccessToast(context, 'User deleted');
+          },
+        ),
+      ],
     );
   }
 }

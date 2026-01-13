@@ -114,7 +114,7 @@ class _AddSupplierState extends State<AddSupplier> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    h1("Add Supplier"),
+                    h1(widget.isUpdate ? "Update Supplier" : "Add Supplier"),
                     button(
                       "Close",
                       onPressed: () => popPage(context),
